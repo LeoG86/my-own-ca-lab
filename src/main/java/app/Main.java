@@ -11,8 +11,6 @@ public class Main {
                 .addLoggedInView()
                 .addSignupUseCase()
                 .addLoginUseCase()
-                .addChangePasswordUseCase()
-                .addLogoutUseCase()
                 .build();
 
         application.pack();

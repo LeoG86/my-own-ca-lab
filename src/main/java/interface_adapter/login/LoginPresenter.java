@@ -1,8 +1,8 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.loggedin.LoggedinState;
+import interface_adapter.loggedin.LoggedInViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -25,15 +25,13 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, update the loggedInViewModel's state
-        final LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(response.getUsername());
+        final LoggedinState loggedinState = new LoggedinState();
+        loggedinState.setUsername(response.getUsername());
+        loggedInViewModel.setState(loggedinState);
         this.loggedInViewModel.firePropertyChange();
 
-        // and clear everything from the LoginViewModel's state
         loginViewModel.setState(new LoginState());
 
-        // switch to the logged in view
         this.viewManagerModel.setState(loggedInViewModel.getViewName());
         this.viewManagerModel.firePropertyChange();
     }
