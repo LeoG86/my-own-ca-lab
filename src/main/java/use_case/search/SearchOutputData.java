@@ -9,7 +9,7 @@ public class SearchOutputData {
         this.rate = rate;
     }
 
-    public String getName() {
+    public String getMovieName() {
         return name;
     }
     public String getRate() {

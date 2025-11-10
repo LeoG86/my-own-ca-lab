@@ -16,7 +16,7 @@ import java.beans.PropertyChangeListener;
 public class MovieView extends JPanel implements ActionListener , PropertyChangeListener {
     private final String viewName = "movie";
     private final JLabel movieName;
-    private final JLabel rating;
+    private final JTextArea rating;
     private final MovieSearchModel movieSearchModel;
     private JButton backButton;
     private MovieController movieController;
@@ -28,10 +28,16 @@ public class MovieView extends JPanel implements ActionListener , PropertyChange
         movieName = new JLabel("Movie Name");
         movieName.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        rating = new JLabel("Rating");
+        rating = new JTextArea("Rating:");
+        rating.setEditable(false);
+        rating.setFocusable(false);
+        rating.setOpaque(false);
+        rating.setLineWrap(true);
+        rating.setWrapStyleWord(true);
         rating.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         backButton = new JButton("Back");
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         backButton.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -49,7 +55,7 @@ public class MovieView extends JPanel implements ActionListener , PropertyChange
     public void propertyChange(PropertyChangeEvent evt) {
         final MovieState movieState = (MovieState) evt.getNewValue();
         movieName.setText("Movie Name:  " + movieState.getMovieName());
-        rating.setText("Rating:  " + movieState.getMovieRate());
+        rating.setText("Rating:  \n" + movieState.getMovieRate());
     }
 
     public String getViewName() {

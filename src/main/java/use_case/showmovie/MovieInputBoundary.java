@@ -1,4 +1,4 @@
 package use_case.showmovie;
 
-public class MovieInputBoundary {
+public interface MovieInputBoundary {
 }

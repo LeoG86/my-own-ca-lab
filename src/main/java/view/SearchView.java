@@ -70,8 +70,7 @@ public class SearchView extends JPanel implements ActionListener , PropertyChang
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(searchButton)) {
             final SearchState currentState = searchViewModel.getState();
-
-
+            searchController.execute(currentState.getMoviename());
         }
     }
 
@@ -81,7 +80,10 @@ public class SearchView extends JPanel implements ActionListener , PropertyChang
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        searchField.setText("");
+        SearchState currentState = searchViewModel.getState();
+        if (currentState.getSearchError() != null) {
+            JOptionPane.showMessageDialog(this, currentState.getSearchError());
+        }
     }
 
     public void setSearchController(SearchController searchController) {

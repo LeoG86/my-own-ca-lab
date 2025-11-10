@@ -7,13 +7,19 @@ import interface_adapter.loggedin.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.showmovie.MovieSearchModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
+import use_case.search.SearchInputBoundary;
+import use_case.search.SearchInteractor;
+import use_case.search.SearchOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -43,9 +49,11 @@ public class AppBuilder {
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private SearchViewModel  searchViewModel;
+    private MovieSearchModel  movieSearchModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SearchView searchView;
+    private MovieView movieView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -62,6 +70,13 @@ public class AppBuilder {
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
         cardPanel.add(searchView, searchView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addMovieView() {
+        movieSearchModel = new MovieSearchModel();
+        movieView = new MovieView(movieSearchModel);
+        cardPanel.add(movieView, movieView.getViewName());
         return this;
     }
 
@@ -98,6 +113,16 @@ public class AppBuilder {
 
         LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
+        return this;
+    }
+
+    public AppBuilder addSearchUseCase() {
+        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(searchViewModel,
+                movieSearchModel, viewManagerModel);
+        final SearchInputBoundary searchInteractor = new SearchInteractor(searchOutputBoundary);
+
+        SearchController searchController = new SearchController(searchInteractor);
+        searchView.setSearchController(searchController);
         return this;
     }
 
