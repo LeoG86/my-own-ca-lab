@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.loggedin.LoggedInViewModel;
 import interface_adapter.loggedin.LoggedinState;
 import interface_adapter.login.LoginState;
+import interface_adapter.search.SearchViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +45,8 @@ public class LoggedInView extends JPanel implements ActionListener , PropertyCha
     }
 
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("sb");
+        viewManagerModel.setState("search");
+        viewManagerModel.firePropertyChange();
     }
 
 

@@ -9,6 +9,7 @@ public class Main {
                 .addLoginView()
                 .addSignupView()
                 .addLoggedInView()
+                .addSearchView()
                 .addSignupUseCase()
                 .addLoginUseCase()
                 .build();
